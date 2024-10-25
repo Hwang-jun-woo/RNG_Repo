@@ -22,7 +22,7 @@ class RandomNunberGame():
             '레바테인':{'effect': f'{Fore.RED}불타는 뜨거움{Fore.WHITE}: 강화 확률 1+(레벨×0.07)배 증가', 'level':40},
         }
 
-        self.golden_earn = self.sword_lv * 3000
+        self.golden_earn = self.sword_lv * 9000
 
         self.sword_list = [sword for sword, _ in self.sword_name.items()]
 
