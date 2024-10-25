@@ -15,11 +15,11 @@ class RandomNunberGame():
 
         self.sword_name = {
             '골든 스워드':{'effect': f'{Fore.YELLOW}마이다스의 손{Fore.WHITE}: 파괴 및 판매 시 (레벨×3000)원 획득', 'level':25},
-            '다마스커스 검':{'effect': f'{Fore.CYAN}페이백{Fore.WHITE}: 강화 시 (레벨×300)원 획득', 'level':28},
+            '다마스커스 검':{'effect': f'{Fore.CYAN}페이백{Fore.WHITE}: 강화 시 (레벨×650)원 획득', 'level':28},
             '엑스칼리버':{'effect': f'{Fore.BLUE}성스러운 빛{Fore.WHITE}: 강화 성공 시 75-(레벨×3)%로 2단계 강화', 'level':30},
             '다인슬라이프':{'effect': f'{Fore.RED}불타는 가호{Fore.WHITE}: 검마다 10회에 한하여 파괴 시 보호', 'level':35, 'count':10},
             '붉은 자루의 검':{'effect': f'{Fore.MAGENTA}희미한 빛{Fore.WHITE}: 파괴 시 43%로 실패로 변경', 'level':38},
-            '레바테인':{'effect': f'{Fore.RED}불타는 뜨거움{Fore.WHITE}: 강화 확률 1+(레벨×0.07)배 증가', 'level':40},
+            '레바테인':{'effect': f'{Fore.RED}불타는 뜨거움{Fore.WHITE}: 강화 확률 1+(레벨×0.007)배 증가', 'level':40},
         }
 
         self.golden_earn = self.sword_lv * 3000
@@ -57,7 +57,7 @@ class RandomNunberGame():
         if self.item['성공 강화권']['count'] > 0:
             self.success_per = self.success_per - ((100 - self.success_per) * 0.1)
         if '레바테인' in self.sword_inventory:
-            self.success_per = self.success_per - ((100 - self.success_per) * 0.02 * self.sword_lv)
+            self.success_per = self.success_per - ((100 - self.success_per) * 0.007 * self.sword_lv)
         if self.success_per > 100:
             self.success_per = 100
         
@@ -262,7 +262,7 @@ class RandomNunberGame():
                         self.total_price += 100
 
                     if '다마스커스 검' in self.sword_inventory:
-                        self.coins += self.sword_lv * 300
+                        self.coins += self.sword_lv * 650
 
                     result = self.enchant(choice)
 
