@@ -17,8 +17,8 @@ class RandomNunberGame():
             '골든 스워드':{'effect': f'{Fore.YELLOW}마이다스의 손{Fore.WHITE}: 파괴 및 판매 시 (레벨×3000)원 획득', 'level':25},
             '다마스커스 검':{'effect': f'{Fore.CYAN}페이백{Fore.WHITE}: 강화 시 (레벨×650)원 획득', 'level':28},
             '엑스칼리버':{'effect': f'{Fore.BLUE}성스러운 빛{Fore.WHITE}: 강화 성공 시 75-(레벨×3)%로 2단계 강화', 'level':30},
-            '다인슬라이프':{'effect': f'{Fore.RED}불타는 가호{Fore.WHITE}: 검마다 10회에 한하여 파괴 시 보호', 'level':35, 'count':10},
-            '붉은 자루의 검':{'effect': f'{Fore.MAGENTA}희미한 빛{Fore.WHITE}: 파괴 시 43%로 실패로 변경', 'level':38},
+            '다인슬라이프':{'effect': f'{Fore.RED}불타는 가호{Fore.WHITE}: 검마다 25회에 한하여 파괴 시 보호', 'level':35, 'count':25},
+            '붉은 자루의 검':{'effect': f'{Fore.MAGENTA}희미한 빛{Fore.WHITE}: 파괴 시 50%로 실패로 변경', 'level':38},
             '레바테인':{'effect': f'{Fore.RED}불타는 뜨거움{Fore.WHITE}: 강화 확률 1+(레벨×0.007)배 증가', 'level':40},
         }
 
@@ -79,7 +79,7 @@ class RandomNunberGame():
                     t.sleep(0.5)
             return 'success'
         elif result <= self.fail_per:
-            if '붉은 자루의 검' in self.sword_inventory and 43 > r.uniform(0, 100):
+            if '붉은 자루의 검' in self.sword_inventory and 50 > r.uniform(0, 100):
                 input(f'검이 깨졌으나 {Fore.MAGENTA}붉은 자루의 검{Fore.WHITE} 효과로 방어했다.')
                 if self.item['실패 유지권']['count'] > 0:
                     self.item['실패 유지권']['count'] -= 1
@@ -110,7 +110,7 @@ class RandomNunberGame():
                     else:
                         input(f'{Fore.MAGENTA}골든 스워드{Fore.WHITE}의 효과로 {earn_coins}코인을 얻었다.')
                 
-                self.sword_name['다인슬라이프']['count'] = 10
+                self.sword_name['다인슬라이프']['count'] = 25
 
                 self.sword_lv = 0
                 return 'fail'
@@ -222,6 +222,8 @@ class RandomNunberGame():
                 self.sword_inventory.pop(2)
         if no_item >= len(self.sword_list):
             print('이 검은 보관할 수 없다.')
+
+        self.sword_name['다인슬라이프']['count'] = 25
         
     def define_price(self):
         self.price = 0
@@ -284,7 +286,7 @@ class RandomNunberGame():
                             self.coins += earn_coins
                             input(f'{Fore.MAGENTA}골든 스워드{Fore.WHITE}의 효과로 {earn_coins}코인을 추가로 얻었다.')
 
-                    self.sword_name['다인슬라이프']['count'] = 10
+                    self.sword_name['다인슬라이프']['count'] = 25
                     self.define_price()
                     self.sword_lv = 0
                     self.total_price = 0
@@ -298,7 +300,6 @@ class RandomNunberGame():
                     continue
 
             elif choice == '3':
-                self.sword_name['다인슬라이프']['count'] = 3
                 self.get_sword()
                 t.sleep(0.5)
                 os.system('cls')
@@ -362,6 +363,9 @@ class RandomNunberGame():
                         if self.sword_lv >= 20:
                             self.total_price += 100
 
+                        if '다마스커스 검' in self.sword_inventory:
+                            self.coins += self.sword_lv * 650
+
                         result = self.enchant(choice)
 
                         print(f'[{i + 1}] ', end = '')
@@ -382,6 +386,9 @@ class RandomNunberGame():
                     self.total_price += self.price 
                     if self.sword_lv >= 20:
                         self.total_price += 100
+                    
+                    if '다마스커스 검' in self.sword_inventory:
+                        self.coins += self.sword_lv * 650
 
                     result = self.enchant(choice)
 
