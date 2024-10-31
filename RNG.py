@@ -402,10 +402,10 @@ class RandomNunberGame():
 
     def in_game(self):
         while True:
-            self.select()
             if self.sword_lv >= 50:
                 print(f'{Fore.GREEN}[YOU WIN!]{Fore.WHITE}')
                 break
+            self.select()
 
 rng = RandomNunberGame() 
 
