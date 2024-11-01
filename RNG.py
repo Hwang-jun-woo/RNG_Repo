@@ -321,6 +321,12 @@ class RandomNunberGame():
                             earn_coins = self.sword_lv * 3000
                             self.coins += earn_coins
                             input(f'{Fore.MAGENTA}골든 스워드{Fore.WHITE}의 효과로 {earn_coins}코인을 추가로 얻었다.')
+                    
+                    if self.sword_lv >= 20:
+                        max = self.sword_lv * 10
+                        earn_shard = r.randint(max - 199, max)
+                        print(f'검의 파편 {earn_shard}개 획득')
+                        t.sleep(0.3)
 
                     self.sword_name['다인슬라이프']['count'] = 25
                     if '다이아몬드 스워드' in self.sword_inventory:
