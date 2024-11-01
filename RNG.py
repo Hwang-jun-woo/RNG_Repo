@@ -17,12 +17,11 @@ class RandomNunberGame():
             '골든 스워드':{'effect': f'{Fore.YELLOW}마이다스의 손{Fore.WHITE}: 파괴 및 판매 시 (레벨×3000)원 획득', 'level':25},
             '다마스커스 검':{'effect': f'{Fore.CYAN}페이백{Fore.WHITE}: 강화 시 (레벨×650)원 획득', 'level':28},
             '엑스칼리버':{'effect': f'{Fore.BLUE}성스러운 빛{Fore.WHITE}: 강화 성공 시 75-(레벨×3)%로 2단계 강화', 'level':30},
+            '다이아몬드 스워드':{'effect': f'{Fore.LIGHTCYAN_EX}아름다움의 정수{Fore.WHITE}: 파괴 및 판매 시 (보유 골드×0.0002)%로 다이아몬드 파편 획득,\n다이아몬드 파편은 15번의 강화동안 비용 100%절감, 성공 확률 1.5배, 성공 시 100000원 획득 효과 부여', 'level':32, 'count':0},
             '다인슬라이프':{'effect': f'{Fore.RED}불타는 가호{Fore.WHITE}: 검마다 25회에 한하여 파괴 시 보호', 'level':35, 'count':25},
             '붉은 자루의 검':{'effect': f'{Fore.MAGENTA}희미한 빛{Fore.WHITE}: 파괴 시 50%로 실패로 변경', 'level':38},
-            '레바테인':{'effect': f'{Fore.RED}불타는 뜨거움{Fore.WHITE}: 강화 확률 1+(레벨×0.007)배 증가', 'level':40},
+            '레바테인':{'effect': f'{Fore.RED}불타는 뜨거움{Fore.WHITE}: 성공 확률 1+(레벨×0.007)배 증가', 'level':40},
         }
-
-        self.golden_earn = self.sword_lv * 3000
 
         self.sword_list = [sword for sword, _ in self.sword_name.items()]
 
@@ -58,6 +57,9 @@ class RandomNunberGame():
             self.success_per = self.success_per - ((100 - self.success_per) * 0.1)
         if '레바테인' in self.sword_inventory:
             self.success_per = self.success_per - ((100 - self.success_per) * 0.007 * self.sword_lv)
+        if self.sword_name['다이아몬드 스워드']['count'] > 0:
+            self.success_per = self.success_per - ((100 - self.success_per) * 0.5 * self.sword_lv)
+
         if self.success_per > 100:
             self.success_per = 100
         
@@ -69,6 +71,8 @@ class RandomNunberGame():
         result = r.uniform(0, 100)
         if self.item['성공 강화권']['count'] > 0:
             self.item['성공 강화권']['count'] -= 1
+        if self.sword_name['다이아몬드 스워드']['count'] > 0:
+            self.sword_name['다이아몬드 스워드']['count'] -= 1
 
         if result >= self.success_per:
             self.sword_lv += 1
@@ -111,6 +115,8 @@ class RandomNunberGame():
                         input(f'{Fore.MAGENTA}골든 스워드{Fore.WHITE}의 효과로 {earn_coins}코인을 얻었다.')
                 
                 self.sword_name['다인슬라이프']['count'] = 25
+                if '다이아몬드 스워드' in self.sword_inventory:
+                    self.sword_name['다이아몬드 스워드']['count'] = 15
 
                 self.sword_lv = 0
                 return 'fail'
@@ -128,6 +134,8 @@ class RandomNunberGame():
     def enchant_result(self, result, choice):
         if result == 'success':
             print(f'{Fore.GREEN}강화 성공!{Fore.WHITE}')
+            if self.sword_name['다이아몬드 스워드']['count'] > 0:
+                self.coins += 100000
         elif result == 'fail':
             if choice == 10:
                 print(f'{Fore.RED}검이 깨졌다.{Fore.WHITE}')
@@ -238,6 +246,9 @@ class RandomNunberGame():
 
             print(f'[{self.coins}코인 보유] [현재 {self.sword_lv}.Lv] ', end = '')
 
+            if self.sword_name['다이아몬드 스워드']['count'] > 0:
+                print(f'[+{Fore.LIGHTCYAN_EX}다이아몬드 파편{Fore.WHITE}]({self.sword_name['다이아몬드 스워드']['count']}개)', end = '')
+
             for sword in self.sword_inventory:
                 if sword != 0:
                     print(f'[+{Fore.MAGENTA}{sword}{Fore.WHITE}]', end = '')
@@ -287,6 +298,8 @@ class RandomNunberGame():
                             input(f'{Fore.MAGENTA}골든 스워드{Fore.WHITE}의 효과로 {earn_coins}코인을 추가로 얻었다.')
 
                     self.sword_name['다인슬라이프']['count'] = 25
+                    if '다이아몬드 스워드' in self.sword_inventory:
+                        self.sword_name['다이아몬드 스워드']['count'] = 15
                     self.define_price()
                     self.sword_lv = 0
                     self.total_price = 0
@@ -326,6 +339,9 @@ class RandomNunberGame():
                     self.define_price()
                     if self.coins > self.price:
                         print(f'[{self.coins}코인 보유] [현재 {self.sword_lv}.Lv] ', end = '')
+
+                        if self.sword_name['다이아몬드 스워드']['count'] > 0:
+                            print(f'[+{Fore.LIGHTCYAN_EX}다이아몬드 파편{Fore.WHITE}]({self.sword_name['다이아몬드 스워드']['count']}개)', end = '')
 
                         for sword in self.sword_inventory:
                             if sword != 0:
