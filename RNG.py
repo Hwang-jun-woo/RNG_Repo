@@ -9,7 +9,7 @@ init()
 class RandomNunberGame():
 
     def __init__(self):
-        self.sword_lv = 49
+        self.sword_lv = 0
 
         self.loan_num = 0
 
@@ -37,7 +37,7 @@ class RandomNunberGame():
 
         self.price = 0
 
-        self.sword_shards = 100000
+        self.sword_shards = 0
 
         self.item = {
             '파괴 방어권':{"effect":f"파괴 방어권을 {Fore.MAGENTA}(레벨)개{Fore.WHITE} 소모하여 파괴를 1회 방어합니다.(10 묶음)", "price": 100000, "count":0},
