@@ -9,7 +9,7 @@ init()
 class RandomNunberGame():
 
     def __init__(self):
-        self.sword_lv = 28
+        self.sword_lv = 0
 
         self.loan_num = 0
 
