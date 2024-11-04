@@ -17,7 +17,7 @@ class RandomNunberGame():
             '골든 스워드':{'effect': f'{Fore.YELLOW}마이다스의 손{Fore.WHITE}: 파괴 및 판매 시 (레벨×2400)원 획득', 'level':25, 'amount':2400},
             '다마스커스 검':{'effect': f'{Fore.CYAN}페이백{Fore.WHITE}: 강화 시 (레벨×270)원 획득', 'level':28, 'amount':270},
             '엑스칼리버':{'effect': f'{Fore.BLUE}성스러운 빛{Fore.WHITE}: 강화 성공 시 75-(레벨×3)%로 2단계 강화', 'level':30},
-            '다이아몬드 스워드':{'effect': f'{Fore.LIGHTCYAN_EX}아름다움의 정수{Fore.WHITE}: 파괴 및 판매 시 (보유 골드×0.0002)%로 다이아몬드 파편 획득,\n다이아몬드 파편은 15번의 강화동안 비용 100%절감, 성공 확률 1.5배, 성공 시 10000원 획득 효과 부여', 'level':32, 'count':0},
+            '다이아몬드 스워드':{'effect': f'{Fore.LIGHTCYAN_EX}아름다움의 정수{Fore.WHITE}: 파괴 및 판매 시 (보유 골드×0.002)%로 다이아몬드 파편 획득,\n다이아몬드 파편은 10번의 강화동안 비용 100%절감, 성공 확률 1.5배, 성공 시 10000원 획득 효과 부여', 'level':32, 'count':0},
             '다인슬라이프':{'effect': f'{Fore.RED}불타는 가호{Fore.WHITE}: 검마다 25회에 한하여 파괴 시 보호', 'level':35, 'count':25},
             '붉은 자루의 검':{'effect': f'{Fore.MAGENTA}희미한 빛{Fore.WHITE}: 파괴 시 50%로 실패로 변경', 'level':38},
             '레바테인':{'effect': f'{Fore.RED}불타는 뜨거움{Fore.WHITE}: 성공 확률 (1+레벨×0.007)배 증가', 'level':40},
@@ -137,8 +137,8 @@ class RandomNunberGame():
                         input(f'{Fore.MAGENTA}골든 스워드{Fore.WHITE}의 효과로 {earn_coins}코인을 얻었다.')
                 
                 self.sword_name['다인슬라이프']['count'] = 25
-                if '다이아몬드 스워드' in self.sword_inventory:
-                    self.sword_name['다이아몬드 스워드']['count'] = 15
+                if '다이아몬드 스워드' in self.sword_inventory and 0.002 * self.sword_lv >= r.uniform(0, 100):
+                    self.sword_name['다이아몬드 스워드']['count'] = 10
 
                 return 'fail'
         else:
@@ -331,8 +331,8 @@ class RandomNunberGame():
                         t.sleep(0.3)
 
                     self.sword_name['다인슬라이프']['count'] = 25
-                    if '다이아몬드 스워드' in self.sword_inventory:
-                        self.sword_name['다이아몬드 스워드']['count'] = 15
+                    if '다이아몬드 스워드' in self.sword_inventory and 0.002 * self.sword_lv >= r.uniform(0, 100):
+                        self.sword_name['다이아몬드 스워드']['count'] = 10
                     self.define_price()
                     self.sword_lv = 0
                     self.total_price = 0
