@@ -106,6 +106,24 @@ class RandomNunberGame():
                 print(f'파괴 방어권 {self.sword_lv}개 소모')
                 t.sleep(0.2)
                 return 'fail_save'
+            elif self.sword_shards >= self.sword_lv:
+                while True:
+                    choice_2 = input(f'검 파편 {Fore.RED}{self.sword_lv}{Fore.WHITE}개를 소모하여 파괴를 방어(현재 {self.sword_shards}개 보유)\n[1]: 방어 [2]: 포기\n: ')
+                    if choice_2 == '1':
+                        self.sword_shards -= self.sword_lv
+                        print('검 파괴를 방어했다.')
+                        t.sleep(0.3)
+                        os.system('cls')
+                        return 'fail_save'
+                    elif choice_2 == '2':
+                        t.sleep(0.3)
+                        os.system('cls')
+                        return 'fail'
+                    else:
+                        print('잘못된 선택')
+                        t.sleep(0.3)
+                        os.system('cls')
+                        continue
             else:
                 if '골든 스워드' in self.sword_inventory:
                     earn_coins = self.sword_lv * 3000
@@ -285,26 +303,7 @@ class RandomNunberGame():
 
                     result = self.enchant(choice)
 
-                    if result == 'fail' and self.sword_shards >= self.sword_lv:
-                        while True:
-                            choice_2 = input(f'검 파편 {Fore.RED}{self.sword_lv}{Fore.WHITE}개를 소모하여 파괴를 방어(현재 {self.sword_shards}개 보유)\n[1]: 방어 [2]: 포기\n: ')
-                            if choice_2 == '1':
-                                self.sword_shards -= self.sword_lv
-                                print('검 파괴를 방어했다.')
-                                t.sleep(0.3)
-                                os.system('cls')
-                                break
-                            elif choice_2 == '2':
-                                t.sleep(0.3)
-                                os.system('cls')
-                                break
-                            else:
-                                print('잘못된 선택')
-                                t.sleep(0.3)
-                                os.system('cls')
-                                continue
-                    else:
-                        self.enchant_result(result, choice)
+                    self.enchant_result(result, choice)
 
                 else:
                     print('돈이 부족합니다.')
@@ -417,26 +416,7 @@ class RandomNunberGame():
 
                         print(f'[{i + 1}] ', end = '')
 
-                        if result == 'fail' and self.sword_shards >= self.sword_lv:
-                            while True:
-                                choice_2 = input(f'검 파편 {Fore.RED}{self.sword_lv}{Fore.WHITE}개를 소모하여 파괴를 방어(현재 {self.sword_shards}개 보유)\n[1]: 방어 [2]: 포기\n: ')
-                                if choice_2 == '1':
-                                    self.sword_shards -= self.sword_lv
-                                    print('검 파괴를 방어했다.')
-                                    t.sleep(0.3)
-                                    os.system('cls')
-                                    break
-                                elif choice_2 == '2':
-                                    t.sleep(0.3)
-                                    os.system('cls')
-                                    break
-                                else:
-                                    print('잘못된 선택')
-                                    t.sleep(0.3)
-                                    os.system('cls')
-                                    continue
-                        else:
-                            self.enchant_result(result, choice)
+                        self.enchant_result(result, choice)
                         
                         if result == 'fail':
                             break
@@ -459,26 +439,7 @@ class RandomNunberGame():
 
                     result = self.enchant(choice)
 
-                    if result == 'fail' and self.sword_shards >= self.sword_lv:
-                        while True:
-                            choice_2 = input(f'검 파편 {Fore.RED}{self.sword_lv}{Fore.WHITE}개를 소모하여 파괴를 방어(현재 {self.sword_shards}개 보유)\n[1]: 방어 [2]: 포기\n: ')
-                            if choice_2 == '1':
-                                self.sword_shards -= self.sword_lv
-                                print('검 파괴를 방어했다.')
-                                t.sleep(0.3)
-                                os.system('cls')
-                                break
-                            elif choice_2 == '2':
-                                t.sleep(0.3)
-                                os.system('cls')
-                                break
-                            else:
-                                print('잘못된 선택')
-                                t.sleep(0.3)
-                                os.system('cls')
-                                continue
-                    else:
-                        self.enchant_result(result, choice)
+                    self.enchant_result(result, choice)
 
                 else:
                     print('돈이 부족합니다.')
@@ -488,7 +449,7 @@ class RandomNunberGame():
 
     def in_game(self):
         while True:
-            if self.sword_lv >= 50:
+            if self.sword_lv == 50:
                 print(f'{Fore.GREEN}[YOU WIN!]{Fore.WHITE}')
                 break
             self.select()
