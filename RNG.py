@@ -9,12 +9,12 @@ init()
 class RandomNunberGame():
 
     def __init__(self):
-        self.sword_lv = 0
+        self.sword_lv = 28
 
         self.loan_num = 0
 
         self.sword_name = {
-            '골든 스워드':{'effect': f'{Fore.YELLOW}마이다스의 손{Fore.WHITE}: 파괴 및 판매 시 (레벨×3000)원 획득', 'level':25},
+            '골든 스워드':{'effect': f'{Fore.YELLOW}마이다스의 손{Fore.WHITE}: 파괴 및 판매 시 (레벨×2400)원 획득', 'level':25, 'amount':2400},
             '다마스커스 검':{'effect': f'{Fore.CYAN}페이백{Fore.WHITE}: 강화 시 (레벨×270)원 획득', 'level':28, 'amount':270},
             '엑스칼리버':{'effect': f'{Fore.BLUE}성스러운 빛{Fore.WHITE}: 강화 성공 시 75-(레벨×3)%로 2단계 강화', 'level':30},
             '다이아몬드 스워드':{'effect': f'{Fore.LIGHTCYAN_EX}아름다움의 정수{Fore.WHITE}: 파괴 및 판매 시 (보유 골드×0.0002)%로 다이아몬드 파편 획득,\n다이아몬드 파편은 15번의 강화동안 비용 100%절감, 성공 확률 1.5배, 성공 시 10000원 획득 효과 부여', 'level':32, 'count':0},
@@ -128,7 +128,7 @@ class RandomNunberGame():
                         return 'fail_save'
             else:
                 if '골든 스워드' in self.sword_inventory:
-                    earn_coins = self.sword_lv * 3000
+                    earn_coins = self.sword_lv * self.sword_name['골든 스워드']['amount']
                     self.coins += earn_coins
                     if choice == '10':
                         print(f'{Fore.MAGENTA}골든 스워드{Fore.WHITE}의 효과로 {earn_coins}코인을 얻었다.')
@@ -320,7 +320,7 @@ class RandomNunberGame():
                     self.coins += earn_coins
                     print(f"{earn_coins}코인을 획득했다.")
                     if '골든 스워드' in self.sword_inventory:
-                            earn_coins = self.sword_lv * 3000
+                            earn_coins = self.sword_lv * self.sword_name['골든 스워드']['amount']
                             self.coins += earn_coins
                             input(f'{Fore.MAGENTA}골든 스워드{Fore.WHITE}의 효과로 {earn_coins}코인을 추가로 얻었다.')
                     
