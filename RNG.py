@@ -38,7 +38,6 @@ class RandomNunberGame():
         self.price = 0
 
         self.sword_shards = 0
-
         self.item = {
             '파괴 방어권':{"effect":f"파괴 방어권을 {Fore.MAGENTA}(레벨)개{Fore.WHITE} 소모하여 파괴를 1회 방어합니다.(10 묶음)", "price": 100000, "count":0},
             '성공 강화권':{"effect":f"성공확률이 {Fore.GREEN}1.1배{Fore.WHITE} 증가합니다 성공에 실패해도 소모됩니다.(15 묶음)", "price": 35000, "count":0},
@@ -165,6 +164,7 @@ class RandomNunberGame():
                 max = self.sword_lv * 10
                 earn_shard = r.randint(max - 199, max)
                 print(f'검의 파편 {earn_shard}개 획득')
+                self.sword_shards += earn_shard
                 t.sleep(0.3)
             self.define_price()
             self.sword_lv = 0
