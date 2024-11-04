@@ -15,7 +15,7 @@ class RandomNunberGame():
 
         self.sword_name = {
             '골든 스워드':{'effect': f'{Fore.YELLOW}마이다스의 손{Fore.WHITE}: 파괴 및 판매 시 (레벨×3000)원 획득', 'level':25},
-            '다마스커스 검':{'effect': f'{Fore.CYAN}페이백{Fore.WHITE}: 강화 시 (레벨×650)원 획득', 'level':28},
+            '다마스커스 검':{'effect': f'{Fore.CYAN}페이백{Fore.WHITE}: 강화 시 (레벨×270)원 획득', 'level':28, 'amount':270},
             '엑스칼리버':{'effect': f'{Fore.BLUE}성스러운 빛{Fore.WHITE}: 강화 성공 시 75-(레벨×3)%로 2단계 강화', 'level':30},
             '다이아몬드 스워드':{'effect': f'{Fore.LIGHTCYAN_EX}아름다움의 정수{Fore.WHITE}: 파괴 및 판매 시 (보유 골드×0.0002)%로 다이아몬드 파편 획득,\n다이아몬드 파편은 15번의 강화동안 비용 100%절감, 성공 확률 1.5배, 성공 시 10000원 획득 효과 부여', 'level':32, 'count':0},
             '다인슬라이프':{'effect': f'{Fore.RED}불타는 가호{Fore.WHITE}: 검마다 25회에 한하여 파괴 시 보호', 'level':35, 'count':25},
@@ -106,23 +106,26 @@ class RandomNunberGame():
                 t.sleep(0.2)
                 return 'fail_save'
             elif self.sword_shards >= self.sword_lv:
-                while True:
-                    choice_2 = input(f'검 파편 {Fore.RED}{self.sword_lv}{Fore.WHITE}개를 소모하여 파괴를 방어(현재 {self.sword_shards}개 보유)\n[1]: 방어 [2]: 포기\n: ')
-                    if choice_2 == '1':
-                        self.sword_shards -= self.sword_lv
-                        print('검 파괴를 방어했다.')
-                        t.sleep(0.3)
-                        os.system('cls')
+                if choice != '10':
+                    while True:
+                        sel = input(f'검 파편 {Fore.RED}{self.sword_lv}{Fore.WHITE}개를 소모하여 파괴를 방어(현재 {self.sword_shards}개 보유)\n[1]: 방어 [2]: 포기\n: ')
+                        if sel == '1':
+                            self.sword_shards -= self.sword_lv
+                            print('검 파괴를 방어했다.')
+                            t.sleep(0.3)
+                            return 'fail_save'
+                        elif sel == '2':
+                            t.sleep(0.3)
+                            return 'fail'
+                        else:
+                            print('잘못된 선택')
+                            t.sleep(0.3)
+                            os.system('cls')
+                            continue
+                else:
+                    if self.sword_shards >= self.sword_lv:
+                        print(f'검 파편 {Fore.RED}{self.sword_lv}{Fore.WHITE}개를 소모하여 파괴를 방어했다')
                         return 'fail_save'
-                    elif choice_2 == '2':
-                        t.sleep(0.3)
-                        os.system('cls')
-                        return 'fail'
-                    else:
-                        print('잘못된 선택')
-                        t.sleep(0.3)
-                        os.system('cls')
-                        continue
             else:
                 if '골든 스워드' in self.sword_inventory:
                     earn_coins = self.sword_lv * 3000
@@ -299,7 +302,7 @@ class RandomNunberGame():
                         self.total_price += 100
 
                     if '다마스커스 검' in self.sword_inventory:
-                        self.coins += self.sword_lv * 650
+                        self.coins += self.sword_lv * self.sword_name['다마스커스 검']['amount']
 
                     result = self.enchant(choice)
 
@@ -410,7 +413,7 @@ class RandomNunberGame():
                             self.total_price += 100
 
                         if '다마스커스 검' in self.sword_inventory:
-                            self.coins += self.sword_lv * 650
+                            self.coins += self.sword_lv * self.sword_name['다마스커스 검']['amount']
 
                         result = self.enchant(choice)
 
@@ -435,7 +438,7 @@ class RandomNunberGame():
                         self.total_price += 100
                     
                     if '다마스커스 검' in self.sword_inventory:
-                        self.coins += self.sword_lv * 650
+                        self.coins += self.sword_lv * self.sword_name['다마스커스 검']['amount']
 
                     result = self.enchant(choice)
 
